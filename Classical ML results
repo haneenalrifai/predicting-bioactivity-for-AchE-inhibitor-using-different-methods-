@@ -1,0 +1,197 @@
+Loading dataset...
+
+Dataset summary
+activity_class
+inactive       2677
+active         1772
+very_active     447
+Name: count, dtype: int64
+
+Generating Morgan fingerprints...
+
+Final feature space: 2051 features
+Total usable molecules: 4896
+
+Train/Test Split
+Train size: 3916
+Test size: 980
+
+Training class distribution
+inactive       2141
+active         1417
+very_active     358
+Name: count, dtype: int64
+
+Test class distribution
+inactive       536
+active         355
+very_active     89
+Name: count, dtype: int64
+
+============================================================
+MODEL: Random Forest
+============================================================
+
+Running hyperparameter optimization...
+Fitting 5 folds for each of 24 candidates, totalling 120 fits
+
+Best parameters:
+{'classifier__max_depth': None, 'classifier__min_samples_leaf': 1, 'classifier__min_samples_split': 2, 'classifier__n_estimators': 300}
+
+Best CV score:
+0.7677197763286098
+
+Cross-validation results
+accuracy: 0.804 ± 0.012
+f1_macro: 0.768 ± 0.018
+roc_auc_ovr: 0.914 ± 0.007
+
+Test set evaluation
+Accuracy: 0.783
+Macro F1: 0.751
+ROC-AUC (OvR): 0.896
+PR-AUC: 0.781
+
+Classification report
+              precision    recall  f1-score   support
+
+      active       0.73      0.66      0.69       355
+    inactive       0.83      0.87      0.85       536
+ very_active       0.69      0.73      0.71        89
+
+    accuracy                           0.78       980
+   macro avg       0.75      0.75      0.75       980
+weighted avg       0.78      0.78      0.78       980
+
+
+Confusion matrix
+             active  inactive  very_active
+active          234        96           25
+inactive         64       468            4
+very_active      22         2           65
+
+Top 15 important features
+      Feature  Importance
+2048     2048    0.025882
+2049     2049    0.025129
+1048     1048    0.009822
+2050     2050    0.008840
+1143     1143    0.008744
+1564     1564    0.007555
+1106     1106    0.007305
+712       712    0.007297
+1506     1506    0.006691
+165       165    0.006172
+1911     1911    0.006149
+304       304    0.005922
+216       216    0.005626
+667       667    0.005370
+592       592    0.004909
+
+Saved model: models/random_forest_pipeline.pkl
+
+============================================================
+MODEL: XGBoost
+============================================================
+
+Running hyperparameter optimization...
+Fitting 5 folds for each of 24 candidates, totalling 120 fits
+
+Best parameters:
+{'classifier__learning_rate': 0.1, 'classifier__max_depth': 7, 'classifier__n_estimators': 200, 'classifier__subsample': 0.8}
+
+Best CV score:
+0.7619925486062825
+
+Cross-validation results
+accuracy: 0.800 ± 0.013
+f1_macro: 0.762 ± 0.017
+roc_auc_ovr: 0.908 ± 0.006
+
+Test set evaluation
+Accuracy: 0.769
+Macro F1: 0.722
+ROC-AUC (OvR): 0.895
+PR-AUC: 0.792
+
+Classification report
+              precision    recall  f1-score   support
+
+      active       0.71      0.65      0.68       355
+    inactive       0.83      0.87      0.85       536
+ very_active       0.64      0.64      0.64        89
+
+    accuracy                           0.77       980
+   macro avg       0.72      0.72      0.72       980
+weighted avg       0.77      0.77      0.77       980
+
+
+Confusion matrix
+             active  inactive  very_active
+active          232        97           26
+inactive         65       465            6
+very_active      31         1           57
+
+Saved model: models/xgboost_pipeline.pkl
+
+============================================================
+MODEL: Logistic Regression
+============================================================
+
+Running hyperparameter optimization...
+Fitting 5 folds for each of 4 candidates, totalling 20 fits
+
+Best parameters:
+{'classifier__C': 1}
+
+Best CV score:
+0.7348543445401183
+
+Cross-validation results
+accuracy: 0.769 ± 0.009
+f1_macro: 0.735 ± 0.008
+roc_auc_ovr: 0.884 ± 0.006
+
+Test set evaluation
+Accuracy: 0.728
+Macro F1: 0.679
+ROC-AUC (OvR): 0.867
+PR-AUC: 0.741
+
+Classification report
+              precision    recall  f1-score   support
+
+      active       0.65      0.61      0.63       355
+    inactive       0.80      0.82      0.81       536
+ very_active       0.57      0.63      0.60        89
+
+    accuracy                           0.73       980
+   macro avg       0.67      0.69      0.68       980
+weighted avg       0.73      0.73      0.73       980
+
+
+Confusion matrix
+             active  inactive  very_active
+active          216       105           34
+inactive         86       441            9
+very_active      30         3           56
+
+Saved model: models/logistic_regression_pipeline.pkl
+
+============================================================
+FINAL MODEL COMPARISON
+============================================================
+                 Model  Accuracy  Macro_F1  ROC_AUC_OvR    PR_AUC
+0        Random Forest  0.782653  0.751027     0.895725  0.780637
+1              XGBoost  0.769388  0.722010     0.894731  0.792376
+2  Logistic Regression  0.727551  0.679156     0.866636  0.740874
+
+Best overall model
+Model          Random Forest
+Accuracy            0.782653
+Macro_F1            0.751027
+ROC_AUC_OvR         0.895725
+PR_AUC              0.780637
+Name: 0, dtype: object
+
+Pipeline completed successfully.
